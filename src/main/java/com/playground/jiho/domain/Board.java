@@ -13,12 +13,14 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 
 @Entity
 @Getter
 @Builder
+@NoArgsConstructor
 public class Board {
     @Id //pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)

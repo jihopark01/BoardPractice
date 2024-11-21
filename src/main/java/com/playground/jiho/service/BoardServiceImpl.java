@@ -2,11 +2,13 @@ package com.playground.jiho.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.playground.jiho.domain.Board;
 import com.playground.jiho.dto.BoardRequestDto;
+import com.playground.jiho.dto.BoardResponseDto;
 import com.playground.jiho.repository.BoardRepository;
 
 import jakarta.transaction.Transactional;
@@ -25,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     @Override
     public List<BoardRequestDto> getBoardList() {
-        List <Board> all = boardRepository.findAll();
+        List<Board> all = boardRepository.findAll();
         List<BoardRequestDto> boardDtoList = new ArrayList<>();
 
         for(Board board : all){
@@ -40,6 +42,18 @@ public class BoardServiceImpl implements BoardService {
         return boardDtoList;
     }
     
-    
+    @Transactional
+    @Override
+    public BoardResponseDto getBoard(Long bno){
+        Optional<Board> result = boardRepository.findById(bno);
+        Board board = result.orElseThrow();
+        BoardResponseDto boardDto = BoardResponseDto.builder()
+        .bid(board.getBid())
+        .title(board.getTitle())
+        .content(board.getContent())
+        .build();
+
+        return boardDto;
+    }
     
 }

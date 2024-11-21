@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.playground.jiho.domain.Board;
 import com.playground.jiho.dto.BoardRequestDto;
+import com.playground.jiho.dto.BoardResponseDto;
 import com.playground.jiho.repository.BoardRepository;
 import com.playground.jiho.service.BoardService;
 import com.playground.jiho.service.BoardServiceImpl;
@@ -35,6 +37,11 @@ public class BoardController {
     @GetMapping("/findPosts")
     public List<BoardRequestDto> findPosts(){
         return boardServiceImpl.getBoardList();
+    }
+
+    @GetMapping("/findBoard/{bno}")
+    public BoardResponseDto findBoard(@PathVariable("bno")Long bno){
+        return boardServiceImpl.getBoard(bno);
     }
 
 }
